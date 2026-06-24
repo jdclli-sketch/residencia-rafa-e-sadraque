@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Residência Rafa &amp; Sadraque — Anteprojeto · Solução Engenharia</title>
+<meta name="description" content="Residência de alto padrão em Lagoa Santa / MG. 232 m² de arquitetura contemporânea: linhas retas, pedra natural, ripado de madeira e integração total com a área de lazer." />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+
+<!-- Compartilhamento (OpenGraph / Twitter) -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Residência Rafa & Sadraque — Anteprojeto" />
+<meta property="og:description" content="232 m² de arquitetura contemporânea em Lagoa Santa / MG. Pedra natural, ripado de madeira, piscina e integração total com o lazer." />
+<meta property="og:image" content="./fachada-frontal.jpg" />
+<meta property="og:locale" content="pt_BR" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Residência Rafa & Sadraque — Anteprojeto" />
+<meta name="twitter:description" content="232 m² de arquitetura contemporânea em Lagoa Santa / MG." />
+<meta name="twitter:image" content="./fachada-frontal.jpg" />
+
+<!-- ============================================================
+     FONTES
+     Display: Cormorant Garamond  ·  Texto/UI: Jost
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   1. TOKENS — paleta, tipografia, medidas
+   Paleta neutra quente derivada dos renders do projeto.
+   ============================================================ */
+:root{
+  --ink:    #181510;   /* preto quente — texto e fundos escuros   */
+  --bone:   #F7F3EC;   /* branco quente — fundo principal          */
+  --paper:  #FCFAF5;   /* off-white levemente mais claro           */
+  --sand:   #E8DFCF;   /* areia — painéis e blocos                 */
+  --stone:  #C8BCA6;   /* pedra — tons médios                      */
+  --taupe-c:#94876F;   /* taupe — legendas, linhas, texto suave    */
+  --brass:  #A6864A;   /* latão fosco — acento usado com parcimônia */
+  --line:   rgba(24,21,16,.14);
+  --line-soft: rgba(24,21,16,.08);
+
+  --ff-display: "Cormorant Garamond", Georgia, serif;
+  --ff-body:    "Jost", "Helvetica Neue", Arial, sans-serif;
+
+  --maxw: 1280px;
+  --gutter: clamp(22px, 5vw, 84px);
+  --rail: 64px;          /* largura da régua vertical (desktop) */
+}
+
+/* ============================================================
+   2. RESET / BASE
+   ============================================================ */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{
+  font-family:var(--ff-body);
+  font-weight:300;
+  color:var(--ink);
+  background:var(--bone);
+  line-height:1.65;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+}
+img{ display:block; max-width:100%; height:auto; }
+a{ color:inherit; text-decoration:none; }
+button{ font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+
+::selection{ background:var(--brass); color:var(--paper); }
+
+/* Tipografia utilitária */
+.eyebrow{
+  font-family:var(--ff-body);
+  font-weight:400;
+  font-size:.72rem;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:var(--brass);
+}
+.serif{ font-family:var(--ff-display); font-weight:300; }
+
+h1,h2,h3{ font-family:var(--ff-display); font-weight:300; line-height:1.04; letter-spacing:.005em; }
+
+/* ============================================================
+   3. LAYOUT — container e régua-assinatura
+   ============================================================ */
+.wrap{ max-width:var(--maxw); margin-inline:auto; padding-inline:var(--gutter); }
+
+/* Régua vertical fixa (assinatura) — ecoa o ripado da fachada */
+.rail{
+  position:fixed; top:0; left:0; z-index:40;
+  width:var(--rail); height:100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:space-between;
+  padding:26px 0;
+  border-right:1px solid var(--line-soft);
+  background:transparent;
+  pointer-events:none;
+  mix-blend-mode:normal;
+}
+.rail .mark{
+  font-family:var(--ff-display); font-size:1.45rem; font-weight:400;
+  color:var(--ink); pointer-events:auto;
+}
+.rail .vtext{
+  writing-mode:vertical-rl; text-orientation:mixed;
+  font-size:.62rem; letter-spacing:.32em; text-transform:uppercase;
+  color:var(--taupe-c);
+}
+.rail .vline{ width:1px; flex:1; margin:18px 0; background:linear-gradient(var(--line),transparent 70%,var(--line)); transition:background .5s; }
+.rail .mark{ transition:color .5s; }
+.rail .vtext{ transition:color .5s; }
+/* régua sobre fundo escuro */
+.rail.on-dark .mark{ color:var(--paper); }
+.rail.on-dark .vtext{ color:rgba(252,250,245,.6); }
+.rail.on-dark .vline{ background:linear-gradient(rgba(252,250,245,.3),transparent 70%,rgba(252,250,245,.3)); }
+
+/* ============================================================
+   4. NAV
+   ============================================================ */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:22px var(--gutter);
+  padding-left:calc(var(--rail) + var(--gutter));
+  transition:background .5s ease, padding .5s ease, box-shadow .5s ease;
+}
+.nav.scrolled{
+  background:rgba(247,243,236,.86);
+  backdrop-filter:saturate(140%) blur(12px);
+  -webkit-backdrop-filter:saturate(140%) blur(12px);
+  padding-top:14px; padding-bottom:14px;
+  box-shadow:0 1px 0 var(--line-soft);
+}
+/* sobre o hero (topo): texto claro */
+.nav:not(.scrolled){ color:var(--paper); }
+.nav:not(.scrolled) .nav__links a{ color:var(--paper); }
+.nav:not(.scrolled) .nav__cta{ border-color:rgba(252,250,245,.6); }
+.nav:not(.scrolled) .nav__cta:hover{ background:var(--paper); color:var(--ink); border-color:var(--paper); }
+.nav:not(.scrolled) .nav__toggle span{ background:var(--paper); }
+.nav__brand{ font-family:var(--ff-display); font-size:1.15rem; letter-spacing:.02em; }
+.nav__brand b{ font-weight:500; }
+.nav__links{ display:flex; gap:34px; align-items:center; }
+.nav__links a{
+  font-size:.74rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink);
+  position:relative; padding-bottom:3px; opacity:.78; transition:opacity .3s;
+}
+.nav__links a::after{
+  content:""; position:absolute; left:0; bottom:0; height:1px; width:0;
+  background:var(--brass); transition:width .35s ease;
+}
+.nav__links a:hover{ opacity:1; }
+.nav__links a:hover::after{ width:100%; }
+.nav__cta{
+  border:1px solid var(--ink); padding:10px 20px;
+  font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
+  transition:background .35s, color .35s;
+}
+.nav__cta:hover{ background:var(--ink); color:var(--paper); }
+.nav__toggle{ display:none; width:34px; height:34px; position:relative; }
+.nav__toggle span{ position:absolute; left:5px; right:5px; height:1.4px; background:var(--ink); transition:.35s; }
+.nav__toggle span:nth-child(1){ top:12px; }
+.nav__toggle span:nth-child(2){ bottom:12px; }
+body.menu-open .nav__toggle span:nth-child(1){ top:16px; transform:rotate(45deg); }
+body.menu-open .nav__toggle span:nth-child(2){ bottom:16px; transform:rotate(-45deg); }
+
+/* ============================================================
+   5. HERO
+   ============================================================ */
+.hero{ position:relative; min-height:100svh; display:flex; align-items:flex-end; }
+.hero__media{ position:absolute; inset:0; overflow:hidden; }
+.hero__media img{
+  width:100%; height:100%; object-fit:cover; object-position:center 60%;
+  transform:scale(1.08); animation:heroZoom 9s ease forwards;
+}
+@keyframes heroZoom{ to{ transform:scale(1); } }
+.hero__media::after{
+  content:""; position:absolute; inset:0;
+  background:
+    linear-gradient(to top, rgba(20,17,13,.70) 0%, rgba(20,17,13,.18) 42%, rgba(20,17,13,.06) 66%, rgba(20,17,13,.34) 100%),
+    linear-gradient(to right, rgba(20,17,13,.38), transparent 52%);
+}
+.hero__inner{
+  position:relative; z-index:2; width:100%;
+  padding-left:calc(var(--rail) + var(--gutter)); padding-right:var(--gutter);
+  padding-top:120px;
+  padding-bottom:clamp(40px,7vh,88px);
+}
+.hero__eyebrow{ color:#E9CF94; margin-bottom:22px; opacity:0; transform:translateY(14px); }
+.hero h1{
+  color:var(--paper);
+  font-size:clamp(2.9rem, 7.4vw, 6.8rem);
+  font-weight:300; line-height:1.0; max-width:18ch;
+}
+.hero h1 .amp{ font-style:italic; font-weight:400; color:#E9CF94; padding:0 .06em; }
+.hero h1 span{ display:block; overflow:hidden; }
+.hero h1 span > i{ display:inline-block; font-style:normal; transform:translateY(110%); }
+.hero__sub{
+  margin-top:26px; max-width:46ch; color:rgba(252,250,245,.86);
+  font-size:clamp(.95rem,1.5vw,1.1rem); font-weight:300; letter-spacing:.02em;
+  opacity:0; transform:translateY(14px);
+}
+.hero__meta{
+  margin-top:32px; display:flex; gap:42px; flex-wrap:wrap;
+  opacity:0; transform:translateY(14px);
+}
+.hero__meta .item .n{ font-family:var(--ff-display); font-size:2.1rem; color:var(--paper); line-height:1; }
+.hero__meta .item .l{ font-size:.66rem; letter-spacing:.24em; text-transform:uppercase; color:rgba(252,250,245,.66); margin-top:8px; }
+.hero__scroll{
+  position:absolute; right:var(--gutter); bottom:clamp(48px,9vh,110px); z-index:2;
+  writing-mode:vertical-rl; font-size:.64rem; letter-spacing:.28em; text-transform:uppercase;
+  color:rgba(252,250,245,.7); display:flex; align-items:center; gap:14px;
+}
+.hero__scroll::after{ content:""; width:1px; height:54px; background:rgba(252,250,245,.5); animation:scrollPulse 2.4s ease-in-out infinite; }
+@keyframes scrollPulse{ 0%,100%{ transform:scaleY(.4); transform-origin:top; opacity:.4; } 50%{ transform:scaleY(1); opacity:1; } }
+
+/* sequência de entrada do hero */
+.hero.ready .hero__eyebrow{ animation:fadeUp .9s .2s ease forwards; }
+.hero.ready h1 span > i{ animation:lineUp 1.05s cubic-bezier(.16,1,.3,1) forwards; }
+.hero.ready h1 span:nth-child(1) > i{ animation-delay:.35s; }
+.hero.ready h1 span:nth-child(2) > i{ animation-delay:.50s; }
+.hero.ready .hero__sub{ animation:fadeUp .9s .85s ease forwards; }
+.hero.ready .hero__meta{ animation:fadeUp .9s 1s ease forwards; }
+@keyframes lineUp{ to{ transform:translateY(0); } }
+@keyframes fadeUp{ to{ opacity:1; transform:translateY(0); } }
+
+/* ============================================================
+   6. SEÇÕES — base, cabeçalhos numerados (pranchas)
+   ============================================================ */
+section{ position:relative; padding-left:var(--rail); }
+@media(max-width:900px){ section{ padding-left:0; } }
+
+.section-pad{ padding-block:clamp(80px,12vw,150px); }
+
+.shead{ display:flex; align-items:baseline; gap:24px; margin-bottom:clamp(40px,6vw,72px); }
+.shead .plate{
+  font-family:var(--ff-body); font-size:.72rem; letter-spacing:.2em; color:var(--brass);
+  border:1px solid var(--brass); border-radius:50%; width:46px; height:46px;
+  display:grid; place-items:center; flex:none;
+}
+.shead .titles .eyebrow{ display:block; margin-bottom:12px; }
+.shead h2{ font-size:clamp(2.2rem,5vw,4rem); }
+
+/* ============================================================
+   7. SOBRE O PROJETO
+   ============================================================ */
+.about{ background:var(--bone); }
+.about__grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:clamp(40px,7vw,96px); align-items:start; }
+.about__lead{
+  font-family:var(--ff-display); font-weight:300;
+  font-size:clamp(1.7rem,3.3vw,2.7rem); line-height:1.28; letter-spacing:.005em;
+}
+.about__lead em{ font-style:italic; color:var(--brass); }
+.about__body p{ color:#3a352c; margin-bottom:1.3em; max-width:52ch; }
+.about__body p:last-child{ margin-bottom:0; }
+.about__facts{ margin-top:42px; border-top:1px solid var(--line); }
+.about__facts .row{
+  display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+  padding:18px 0; border-bottom:1px solid var(--line-soft);
+}
+.about__facts .row dt{ font-size:.74rem; letter-spacing:.16em; text-transform:uppercase; color:var(--taupe-c); }
+.about__facts .row dd{ font-family:var(--ff-display); font-size:1.55rem; }
+.about__facts .row dd small{ font-family:var(--ff-body); font-size:.8rem; letter-spacing:.1em; color:var(--taupe-c); }
+
+/* ============================================================
+   8. PLANTAS
+   ============================================================ */
+.plans{ background:var(--ink); color:var(--paper); }
+.plans .eyebrow{ color:#E9CF94; }
+.plans .shead .plate{ border-color:#E9CF94; color:#E9CF94; }
+.plans h2{ color:var(--paper); }
+.plans__intro{ max-width:54ch; color:rgba(252,250,245,.74); margin-top:-32px; margin-bottom:clamp(48px,6vw,78px); font-weight:300; }
+.plans__grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,4vw,56px); }
+.plan{ }
+.plan__fig{
+  background:var(--paper); padding:clamp(18px,2.5vw,34px);
+  border:1px solid rgba(252,250,245,.12);
+  overflow:hidden;
+}
+.plan__fig img{ width:100%; transition:transform 1.1s cubic-bezier(.16,1,.3,1); }
+.plan__fig:hover img{ transform:scale(1.04); }
+.plan__cap{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-top:22px; padding-bottom:6px; border-bottom:1px solid rgba(252,250,245,.16); }
+.plan__cap h3{ font-size:1.7rem; color:var(--paper); }
+.plan__cap .area{ font-family:var(--ff-display); font-size:1.5rem; color:#E9CF94; }
+.plan__note{ margin-top:14px; font-size:.86rem; color:rgba(252,250,245,.6); }
+.plans__foot{
+  margin-top:clamp(40px,5vw,64px); padding-top:26px; border-top:1px solid rgba(252,250,245,.16);
+  display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:18px;
+}
+.plans__foot .big{ font-family:var(--ff-display); font-size:clamp(2.4rem,6vw,4.4rem); }
+.plans__foot .big small{ font-family:var(--ff-body); font-size:.8rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(252,250,245,.6); }
+.plans__foot .opt{ font-size:.86rem; color:rgba(252,250,245,.7); max-width:34ch; }
+.plans__foot .opt b{ color:#E9CF94; font-weight:400; }
+
+/* ============================================================
+   9. GALERIA
+   ============================================================ */
+.gallery{ background:var(--paper); }
+.gallery__grid{ display:grid; grid-template-columns:repeat(6,1fr); gap:clamp(14px,2vw,26px); }
+.gfig{ position:relative; overflow:hidden; background:var(--sand); }
+.gfig img{ width:100%; height:100%; object-fit:cover; transition:transform 1.2s cubic-bezier(.16,1,.3,1); }
+.gfig:hover img{ transform:scale(1.05); }
+.gfig figcaption{
+  position:absolute; left:0; bottom:0; right:0; z-index:2;
+  padding:18px 20px; color:var(--paper);
+  font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
+  background:linear-gradient(to top, rgba(24,21,16,.7), transparent);
+  opacity:0; transform:translateY(8px); transition:.45s ease;
+}
+.gfig:hover figcaption{ opacity:1; transform:translateY(0); }
+.gfig--wide{ grid-column:span 4; aspect-ratio:16/10; }
+.gfig--tall{ grid-column:span 2; aspect-ratio:auto; }
+.gfig--half{ grid-column:span 3; aspect-ratio:16/9; }
+
+/* ============================================================
+   10. DIFERENCIAIS
+   ============================================================ */
+.feat{ background:var(--sand); }
+.feat__grid{ display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); border-left:1px solid var(--line); }
+.fcard{
+  padding:clamp(30px,3.4vw,52px) clamp(26px,3vw,44px) clamp(40px,4vw,60px);
+  border-right:1px solid var(--line); border-bottom:1px solid var(--line);
+  position:relative; transition:background .5s ease;
+}
+.fcard:hover{ background:var(--paper); }
+.fcard .num{ font-family:var(--ff-body); font-size:.74rem; letter-spacing:.2em; color:var(--brass); }
+.fcard h3{ font-size:1.85rem; margin:20px 0 14px; }
+.fcard p{ font-size:.92rem; color:#4a4438; max-width:34ch; }
+.fcard .line{ position:absolute; left:0; bottom:-1px; height:2px; width:0; background:var(--brass); transition:width .6s cubic-bezier(.16,1,.3,1); }
+.fcard:hover .line{ width:100%; }
+
+/* ============================================================
+   11. CONTATO
+   ============================================================ */
+.contact{ background:var(--ink); color:var(--paper); }
+.contact .eyebrow{ color:#E9CF94; }
+.contact__grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(48px,7vw,110px); align-items:start; }
+.contact h2{ color:var(--paper); font-size:clamp(2.4rem,5.5vw,4.4rem); margin-bottom:28px; }
+.contact__lead{ color:rgba(252,250,245,.78); max-width:42ch; margin-bottom:42px; font-weight:300; }
+.contact__info{ display:grid; gap:26px; }
+.cinfo .l{ font-size:.68rem; letter-spacing:.24em; text-transform:uppercase; color:#E9CF94; margin-bottom:7px; }
+.cinfo .v{ font-family:var(--ff-display); font-size:1.5rem; }
+.cinfo .v a{ transition:color .3s; }
+.cinfo .v a:hover{ color:#E9CF94; }
+
+.form{ display:grid; gap:26px; }
+.field{ position:relative; }
+.field label{ position:absolute; left:0; top:14px; font-size:.95rem; color:rgba(252,250,245,.5); pointer-events:none; transition:.3s ease; letter-spacing:.02em; }
+.field input, .field textarea{
+  width:100%; background:transparent; border:none; border-bottom:1px solid rgba(252,250,245,.26);
+  padding:14px 0; color:var(--paper); font-family:var(--ff-body); font-size:1rem; font-weight:300;
+  transition:border-color .3s;
+}
+.field textarea{ resize:none; min-height:90px; }
+.field input:focus, .field textarea:focus{ outline:none; border-color:#E9CF94; }
+.field input:focus + label, .field input:not(:placeholder-shown) + label,
+.field textarea:focus + label, .field textarea:not(:placeholder-shown) + label{
+  top:-12px; font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:#E9CF94;
+}
+.form__submit{
+  justify-self:start; margin-top:6px;
+  border:1px solid #E9CF94; color:#E9CF94; background:transparent;
+  padding:15px 38px; font-size:.74rem; letter-spacing:.22em; text-transform:uppercase;
+  transition:background .4s, color .4s;
+}
+.form__submit:hover{ background:#E9CF94; color:var(--ink); }
+.form__note{ font-size:.78rem; color:rgba(252,250,245,.5); }
+
+/* ============================================================
+   12. FOOTER
+   ============================================================ */
+.footer{ background:var(--ink); color:rgba(252,250,245,.6); padding:40px var(--gutter); padding-left:calc(var(--rail) + var(--gutter)); border-top:1px solid rgba(252,250,245,.12); }
+.footer__row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; }
+.footer__brand{ font-family:var(--ff-display); font-size:1.3rem; color:var(--paper); }
+.footer small{ font-size:.72rem; letter-spacing:.12em; }
+
+/* ============================================================
+   13. REVEAL ON SCROLL
+   ============================================================ */
+[data-reveal]{ opacity:0; transform:translateY(28px); transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1); }
+[data-reveal].in{ opacity:1; transform:none; }
+[data-reveal][data-delay="1"]{ transition-delay:.12s; }
+[data-reveal][data-delay="2"]{ transition-delay:.24s; }
+[data-reveal][data-delay="3"]{ transition-delay:.36s; }
+
+/* ============================================================
+   14. RESPONSIVO
+   ============================================================ */
+@media(max-width:1024px){
+  .gfig--wide{ grid-column:span 6; }
+  .gfig--tall{ grid-column:span 3; }
+  .gfig--half{ grid-column:span 3; }
+}
+@media(max-width:900px){
+  :root{ --rail:0px; }
+  .rail{ display:none; }
+  .nav{ padding-left:var(--gutter); }
+  .nav__links{
+    position:fixed; inset:0; flex-direction:column; justify-content:center; gap:30px;
+    background:var(--bone); transform:translateX(100%); transition:transform .5s cubic-bezier(.16,1,.3,1);
+  }
+  body.menu-open .nav__links{ transform:translateX(0); }
+  .nav__links a{ font-size:1rem; }
+  .nav__toggle{ display:block; z-index:60; }
+  .hero__inner{ padding-left:var(--gutter); }
+  .about__grid{ grid-template-columns:1fr; }
+  .plans__grid{ grid-template-columns:1fr; }
+  .feat__grid{ grid-template-columns:1fr 1fr; }
+  .contact__grid{ grid-template-columns:1fr; }
+  .footer{ padding-left:var(--gutter); }
+}
+@media(max-width:560px){
+  .feat__grid{ grid-template-columns:1fr; }
+  .gfig--wide,.gfig--tall,.gfig--half{ grid-column:span 6; aspect-ratio:4/3; }
+  .hero__meta{ gap:28px; }
+  .hero__scroll{ display:none; }
+  .nav__cta{ display:none; }
+  .plan__cap{ flex-direction:column; gap:4px; }
+}
+
+/* Acessibilidade — movimento reduzido */
+@media(prefers-reduced-motion:reduce){
+  *{ animation:none !important; transition-duration:.01ms !important; }
+  .hero__media img{ transform:none; }
+  .hero h1 span > i{ transform:none; }
+  [data-reveal]{ opacity:1; transform:none; }
+}
+:focus-visible{ outline:2px solid var(--brass); outline-offset:3px; }
+
+/* ============================================================
+   15. LIGHTBOX (ampliar imagens)
+   ============================================================ */
+[data-zoom]{ cursor:zoom-in; }
+.lightbox{
+  position:fixed; inset:0; z-index:120;
+  display:flex; align-items:center; justify-content:center;
+  padding:clamp(18px,4vw,56px);
+  background:rgba(18,15,11,.92);
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  opacity:0; visibility:hidden; transition:opacity .4s ease, visibility .4s;
+}
+.lightbox.open{ opacity:1; visibility:visible; }
+.lightbox__img{
+  max-width:min(1100px,94vw); max-height:88vh; width:auto; height:auto;
+  object-fit:contain; box-shadow:0 30px 80px rgba(0,0,0,.5);
+  transform:scale(.96); transition:transform .45s cubic-bezier(.16,1,.3,1);
+  background:var(--paper);
+}
+.lightbox.open .lightbox__img{ transform:scale(1); }
+.lightbox__cap{
+  position:absolute; left:0; right:0; bottom:clamp(16px,3vw,30px); text-align:center;
+  color:rgba(252,250,245,.8); font-size:.72rem; letter-spacing:.2em; text-transform:uppercase;
+}
+.lightbox__close{
+  position:absolute; top:clamp(14px,3vw,28px); right:clamp(14px,3vw,28px);
+  width:48px; height:48px; border:1px solid rgba(252,250,245,.4); border-radius:50%;
+  color:var(--paper); font-size:1.1rem; line-height:1; display:grid; place-items:center;
+  transition:background .3s, border-color .3s;
+}
+.lightbox__close:hover{ background:rgba(252,250,245,.12); border-color:var(--paper); }
+.lightbox__nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:52px; height:52px; border:1px solid rgba(252,250,245,.35); border-radius:50%;
+  color:var(--paper); font-size:1.3rem; display:grid; place-items:center;
+  transition:background .3s, border-color .3s;
+}
+.lightbox__nav:hover{ background:rgba(252,250,245,.12); border-color:var(--paper); }
+.lightbox__nav.prev{ left:clamp(12px,3vw,32px); }
+.lightbox__nav.next{ right:clamp(12px,3vw,32px); }
+@media(max-width:560px){ .lightbox__nav{ width:42px; height:42px; } }
+
+/* ============================================================
+   16. BOTÃO FLUTUANTE WHATSAPP
+   ============================================================ */
+.wa{
+  position:fixed; right:clamp(16px,3vw,28px); bottom:clamp(16px,3vw,28px); z-index:90;
+  display:inline-flex; align-items:center; gap:0;
+  height:58px; padding:0; border-radius:30px;
+  background:var(--ink); color:var(--paper);
+  box-shadow:0 12px 30px rgba(18,15,11,.28);
+  overflow:hidden; max-width:58px;
+  transition:max-width .5s cubic-bezier(.16,1,.3,1), background .3s;
+}
+.wa:hover, .wa:focus-visible{ max-width:230px; background:#211c15; }
+.wa__icon{ flex:none; width:58px; height:58px; display:grid; place-items:center; }
+.wa__icon svg{ width:26px; height:26px; fill:#E9CF94; }
+.wa__label{
+  white-space:nowrap; padding-right:24px;
+  font-size:.74rem; letter-spacing:.16em; text-transform:uppercase; color:var(--paper);
+}
+@media(prefers-reduced-motion:reduce){ .wa{ max-width:230px; } }
+</style>
+</head>
+
+<body>
+
+<!-- ===================== RÉGUA / ASSINATURA ===================== -->
+<aside class="rail" aria-hidden="true">
+  <span class="mark">S</span>
+  <span class="vline"></span>
+  <span class="vtext">Solução Engenharia · Lagoa Santa / MG</span>
+</aside>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#topo">Residência <b>Rafa &amp; Sadraque</b></a>
+  <nav class="nav__links" id="navLinks">
+    <a href="#sobre">Sobre</a>
+    <a href="#plantas">Plantas</a>
+    <a href="#galeria">Galeria</a>
+    <a href="#diferenciais">Diferenciais</a>
+    <a class="nav__cta" href="#contato">Agendar visita</a>
+  </nav>
+  <button class="nav__toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+    <span></span><span></span>
+  </button>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="topo" aria-label="Apresentação">
+  <div class="hero__media">
+    <!-- Para trocar a imagem, substitua o arquivo em ./fachada-frontal.jpg -->
+    <img src="./fachada-frontal.jpg" alt="Fachada frontal da residência ao entardecer" />
+  </div>
+  <div class="hero__inner">
+    <p class="eyebrow hero__eyebrow">Anteprojeto · Lagoa Santa / MG</p>
+    <h1>
+      <span><i>Residência</i></span>
+      <span><i>Rafa <span class="amp">&amp;</span> Sadraque</i></span>
+    </h1>
+    <p class="hero__sub">Arquitetura contemporânea em dois pavimentos, desenhada ao redor da luz, da pedra e do convívio. Linhas retas, materialidade honesta e integração plena com a área de lazer.</p>
+    <div class="hero__meta">
+      <div class="item"><div class="n">232</div><div class="l">m² construídos</div></div>
+      <div class="item"><div class="n">02</div><div class="l">pavimentos</div></div>
+      <div class="item"><div class="n">03</div><div class="l">suítes &amp; quartos</div></div>
+    </div>
+  </div>
+  <div class="hero__scroll">Role para descobrir</div>
+</section>
+
+<!-- ===================== SOBRE O PROJETO ===================== -->
+<section class="about section-pad" id="sobre">
+  <div class="wrap">
+    <div class="shead" data-reveal>
+      <span class="plate">01</span>
+      <div class="titles">
+        <span class="eyebrow">O conceito</span>
+        <h2>Sobre o projeto</h2>
+      </div>
+    </div>
+
+    <div class="about__grid">
+      <p class="about__lead" data-reveal>
+        Um volume sereno, organizado em torno da <em>luz natural</em> e da continuidade entre o interior e o jardim. A fachada combina massas horizontais em balanço a um núcleo vertical revestido em <em>ripado de madeira</em> e pedra.
+      </p>
+
+      <div class="about__body" data-reveal data-delay="1">
+        <p>O térreo se abre por completo para a área externa: estar, cozinha e jantar fluem sem barreiras até a varanda e a piscina, sob um pé-direito generoso e um vão envidraçado que ilumina a escada.</p>
+        <p>No pavimento superior, a suíte master ganha closet integrado e banheiro privativo, acompanhada de quartos amplos e de uma varanda voltada ao lazer — pensada para que cada ambiente receba ventilação cruzada e vistas francas.</p>
+
+        <dl class="about__facts">
+          <div class="row"><dt>Área total</dt><dd>232 <small>m²</small></dd></div>
+          <div class="row"><dt>Térreo</dt><dd>150 <small>m²</small></dd></div>
+          <div class="row"><dt>Pavimento superior</dt><dd>82 <small>m²</small></dd></div>
+          <div class="row"><dt>Suíte master</dt><dd>20 <small>m² · com closet</small></dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PLANTAS ===================== -->
+<section class="plans section-pad" id="plantas" data-theme="dark">
+  <div class="wrap">
+    <div class="shead" data-reveal>
+      <span class="plate">02</span>
+      <div class="titles">
+        <span class="eyebrow">Distribuição</span>
+        <h2>Plantas</h2>
+      </div>
+    </div>
+    <p class="plans__intro" data-reveal>Dois pavimentos em diálogo: o convívio aberto no térreo e a privacidade dos dormitórios acima. Implantação que reserva o fundo do lote para piscina, deck e paisagismo.</p>
+
+    <div class="plans__grid">
+      <figure class="plan" data-reveal>
+        <!-- Substitua por ./planta-terreo.jpg -->
+        <div class="plan__fig"><img src="./planta-terreo.jpg" alt="Planta humanizada do pavimento térreo" data-zoom data-cap="Planta · Térreo — 150 m²" /></div>
+        <figcaption class="plan__cap"><h3>Térreo</h3><span class="area">150 m²</span></figcaption>
+        <p class="plan__note">Estar, cozinha e jantar integrados · suíte no térreo · varanda, piscina e garagem.</p>
+      </figure>
+
+      <figure class="plan" data-reveal data-delay="1">
+        <!-- Substitua por ./planta-pavimento.jpg -->
+        <div class="plan__fig"><img src="./planta-pavimento.jpg" alt="Planta humanizada do primeiro pavimento" data-zoom data-cap="Planta · 1º Pavimento — 82 m²" /></div>
+        <figcaption class="plan__cap"><h3>1º Pavimento</h3><span class="area">82 m²</span></figcaption>
+        <p class="plan__note">Suíte master com closet · dois quartos · banheiro social · varanda voltada ao lazer.</p>
+      </figure>
+    </div>
+
+    <div class="plans__foot" data-reveal>
+      <div class="big">232<small> m² · área construída total</small></div>
+      <p class="opt">Opcional de projeto: ao cobrir integralmente a varanda dos fundos, acrescentam-se <b>+25 m²</b> à construção.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GALERIA ===================== -->
+<section class="gallery section-pad" id="galeria">
+  <div class="wrap">
+    <div class="shead" data-reveal>
+      <span class="plate">03</span>
+      <div class="titles">
+        <span class="eyebrow">Imagens do projeto</span>
+        <h2>Galeria</h2>
+      </div>
+    </div>
+
+    <div class="gallery__grid">
+      <figure class="gfig gfig--wide" data-reveal>
+        <img src="./fachada-frontal.jpg" alt="Fachada frontal com pedra natural e ripado de madeira" data-zoom data-cap="Fachada frontal · acesso e garagem" />
+        <figcaption>Fachada frontal · acesso e garagem</figcaption>
+      </figure>
+      <figure class="gfig gfig--tall" data-reveal data-delay="1">
+        <img src="./fachada-fundos.jpg" alt="Fachada dos fundos com piscina e varanda" data-zoom data-cap="Fundos · piscina e lazer" />
+        <figcaption>Fundos · piscina e lazer</figcaption>
+      </figure>
+      <figure class="gfig gfig--half" data-reveal>
+        <img src="./fachada-fundos-coberta.jpg" alt="Fachada dos fundos com varanda coberta" data-zoom data-cap="Opção · varanda coberta (+25 m²)" />
+        <figcaption>Opção · varanda coberta</figcaption>
+      </figure>
+      <figure class="gfig gfig--half" data-reveal data-delay="1">
+        <img src="./planta-terreo.jpg" alt="Vista superior do térreo" data-zoom data-cap="Implantação · vista superior" />
+        <figcaption>Implantação · vista superior</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DIFERENCIAIS ===================== -->
+<section class="feat section-pad" id="diferenciais">
+  <div class="wrap">
+    <div class="shead" data-reveal>
+      <span class="plate">04</span>
+      <div class="titles">
+        <span class="eyebrow">Por que esta casa</span>
+        <h2>Diferenciais</h2>
+      </div>
+    </div>
+
+    <div class="feat__grid">
+      <article class="fcard" data-reveal>
+        <span class="num">— 01</span>
+        <h3>Metragem</h3>
+        <p>232 m² de área construída distribuídos em dois pavimentos, com ampliação opcional de +25 m².</p>
+        <span class="line"></span>
+      </article>
+      <article class="fcard" data-reveal data-delay="1">
+        <span class="num">— 02</span>
+        <h3>Suíte master</h3>
+        <p>Cerca de 20 m² com closet integrado e banheiro privativo, voltada ao lazer e à vista do jardim.</p>
+        <span class="line"></span>
+      </article>
+      <article class="fcard" data-reveal data-delay="2">
+        <span class="num">— 03</span>
+        <h3>Materialidade</h3>
+        <p>Pedra natural, ripado de madeira e esquadrias de piso a teto que vestem uma arquitetura de linhas retas.</p>
+        <span class="line"></span>
+      </article>
+      <article class="fcard" data-reveal>
+        <span class="num">— 04</span>
+        <h3>Área de lazer</h3>
+        <p>Piscina, varanda gourmet e deck integrados ao paisagismo, em continuidade direta com o estar.</p>
+        <span class="line"></span>
+      </article>
+      <article class="fcard" data-reveal data-delay="1">
+        <span class="num">— 05</span>
+        <h3>Garagem</h3>
+        <p>Vagas cobertas sob pergolado em madeira, articuladas ao acesso principal e ao paisagismo frontal.</p>
+        <span class="line"></span>
+      </article>
+      <article class="fcard" data-reveal data-delay="2">
+        <span class="num">— 06</span>
+        <h3>Localização</h3>
+        <p>Lagoa Santa, Minas Gerais — região de clima ameno, natureza próxima e fácil acesso à capital.</p>
+        <span class="line"></span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTATO ===================== -->
+<section class="contact section-pad" id="contato" data-theme="dark">
+  <div class="wrap">
+    <div class="shead" data-reveal>
+      <span class="plate">05</span>
+      <div class="titles">
+        <span class="eyebrow">Fale com a equipe</span>
+      </div>
+    </div>
+
+    <div class="contact__grid">
+      <div data-reveal>
+        <h2>Vamos<br>construir juntos.</h2>
+        <p class="contact__lead">Agende uma conversa para conhecer o anteprojeto em detalhe, ajustar o programa às suas necessidades e receber o orçamento da obra.</p>
+
+        <div class="contact__info">
+          <div class="cinfo">
+            <div class="l">Escritório</div>
+            <div class="v">Solução Engenharia</div>
+          </div>
+          <div class="cinfo">
+            <div class="l">WhatsApp</div>
+            <div class="v"><a href="https://wa.me/5531997377478" target="_blank" rel="noopener">+55 31 99737-7478</a></div>
+          </div>
+          <div class="cinfo">
+            <div class="l">E-mail</div>
+            <div class="v"><a href="mailto:Rafaeladsm1997@gmail.com">Rafaeladsm1997@gmail.com</a></div>
+          </div>
+          <div class="cinfo">
+            <div class="l">Localização</div>
+            <div class="v">Lagoa Santa · Minas Gerais</div>
+          </div>
+        </div>
+      </div>
+
+      <div data-reveal data-delay="1">
+        <!-- Formulário via mailto. Para integrar a um back-end ou serviço
+             (Formspree, etc.), troque o atributo action do <form>. -->
+        <form class="form" id="contactForm" action="mailto:Rafaeladsm1997@gmail.com" method="post" enctype="text/plain">
+          <div class="field">
+            <input type="text" id="nome" name="nome" placeholder=" " required />
+            <label for="nome">Nome</label>
+          </div>
+          <div class="field">
+            <input type="email" id="email" name="email" placeholder=" " required />
+            <label for="email">E-mail</label>
+          </div>
+          <div class="field">
+            <input type="tel" id="fone" name="telefone" placeholder=" " />
+            <label for="fone">Telefone</label>
+          </div>
+          <div class="field">
+            <textarea id="msg" name="mensagem" placeholder=" "></textarea>
+            <label for="msg">Mensagem</label>
+          </div>
+          <button class="form__submit" type="submit">Enviar mensagem</button>
+          <p class="form__note">Retornamos em até um dia útil.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="footer__row">
+    <span class="footer__brand">Residência Rafa &amp; Sadraque</span>
+    <small>Anteprojeto · Solução Engenharia · Lagoa Santa / MG · © <span id="year"></span></small>
+  </div>
+</footer>
+
+<!-- ===================== BOTÃO WHATSAPP ===================== -->
+<!-- Troque o número (formato internacional, só dígitos) pelo real -->
+<a class="wa" href="https://wa.me/5531997377478?text=Ol%C3%A1!%20Tenho%20interesse%20na%20Resid%C3%AAncia%20Rafa%20%26%20Sadraque."
+   target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <span class="wa__icon" aria-hidden="true">
+    <svg viewBox="0 0 32 32"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.1 1.6 5.9L4 29l8.3-1.6c1.7.9 3.7 1.4 5.7 1.4 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.9 1 1-4.8-.3-.4c-1-1.6-1.5-3.4-1.5-5.3C5 9.5 9.9 4.6 16 4.6S27 9.5 27 15.6 22.1 24.8 16 24.8zm6.1-7.6c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.2-.2.3-.9 1.1-1.1 1.3-.2.2-.4.2-.7.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.8-1.6.1-.2 0-.4 0-.6s-.8-1.9-1.1-2.6c-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.5 3.8 6 5.3 2.2.9 3 1 4.1.9.7-.1 2-.8 2.3-1.6.3-.8.3-1.5.2-1.6-.1-.2-.3-.3-.6-.4z"/></svg>
+  </span>
+  <span class="wa__label">Fale no WhatsApp</span>
+</a>
+
+<!-- ===================== LIGHTBOX ===================== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagem ampliada">
+  <button class="lightbox__close" id="lbClose" aria-label="Fechar">&#10005;</button>
+  <button class="lightbox__nav prev" id="lbPrev" aria-label="Anterior">&#8249;</button>
+  <img class="lightbox__img" id="lbImg" src="" alt="" />
+  <button class="lightbox__nav next" id="lbNext" aria-label="Próxima">&#8250;</button>
+  <div class="lightbox__cap" id="lbCap"></div>
+</div>
+
+<!-- ===================== SCRIPTS ===================== -->
+<script>
+/* ----- Nav: estado ao rolar ----- */
+const nav = document.getElementById('nav');
+const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+onScroll();
+window.addEventListener('scroll', onScroll, { passive:true });
+
+/* ----- Menu mobile ----- */
+const toggle = document.getElementById('navToggle');
+const links = document.getElementById('navLinks');
+const closeMenu = () => { document.body.classList.remove('menu-open'); toggle.setAttribute('aria-expanded','false'); };
+toggle.addEventListener('click', () => {
+  const open = document.body.classList.toggle('menu-open');
+  toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+links.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+/* ----- Sequência de entrada do hero ----- */
+window.addEventListener('load', () => {
+  document.querySelector('.hero').classList.add('ready');
+});
+
+/* ----- Reveal on scroll (IntersectionObserver) ----- */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold:0.12, rootMargin:'0px 0px -8% 0px' });
+document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+/* ----- Régua: tema claro/escuro conforme seção atrás dela ----- */
+const rail = document.querySelector('.rail');
+const darkSecs = [...document.querySelectorAll('[data-theme="dark"]')];
+function syncRail(){
+  const mid = window.innerHeight * 0.5;
+  const onDark = darkSecs.some(sec => {
+    const r = sec.getBoundingClientRect();
+    return r.top <= mid && r.bottom >= mid;
+  });
+  rail.classList.toggle('on-dark', onDark);
+}
+syncRail();
+window.addEventListener('scroll', syncRail, { passive:true });
+window.addEventListener('resize', syncRail);
+
+/* ----- Lightbox (ampliar imagens) ----- */
+const zoomables = [...document.querySelectorAll('[data-zoom]')];
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCap = document.getElementById('lbCap');
+let lbIndex = 0;
+
+function openLb(i){
+  lbIndex = (i + zoomables.length) % zoomables.length;
+  const el = zoomables[lbIndex];
+  lbImg.src = el.currentSrc || el.src;
+  lbImg.alt = el.alt || '';
+  lbCap.textContent = el.dataset.cap || '';
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb(){ lb.classList.remove('open'); document.body.style.overflow = ''; }
+
+zoomables.forEach((el, i) => {
+  el.addEventListener('click', () => openLb(i));
+});
+document.getElementById('lbClose').addEventListener('click', closeLb);
+document.getElementById('lbNext').addEventListener('click', () => openLb(lbIndex + 1));
+document.getElementById('lbPrev').addEventListener('click', () => openLb(lbIndex - 1));
+lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+document.addEventListener('keydown', (e) => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowRight') openLb(lbIndex + 1);
+  if (e.key === 'ArrowLeft') openLb(lbIndex - 1);
+});
+
+/* ----- Ano no rodapé ----- */
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

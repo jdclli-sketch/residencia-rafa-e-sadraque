@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="10" fill="#181510"/>
+  <text x="50%" y="50%" dy="2"
+        font-family="Cormorant Garamond, Georgia, serif"
+        font-size="44" font-weight="500"
+        fill="#A6864A" text-anchor="middle" dominant-baseline="middle">S</text>
+</svg>
